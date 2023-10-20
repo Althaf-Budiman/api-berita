@@ -41,20 +41,20 @@ class CommentController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comment $comment)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, int $id)
     {
-        //
+        $request->validate([
+            'comment_content' => 'required'
+        ]);
+
+        $comment = Comment::find($id);
+        $comment->update($request->only('comment_content'));
+
+        return new CommentResource($comment->loadMissing('user'));
     }
 
     /**
