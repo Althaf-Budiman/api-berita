@@ -13,7 +13,7 @@ class PostController extends Controller
     {
         $posts = Post::all();
         // kita pakai fungsi collection karena responsnya akan mengeluarkan data yang lebih dari 1
-        return PostResource::collection($posts->loadMissing('writer'));
+        return PostResource::collection($posts->loadMissing('writer', 'comments'));
     }
 
     function show($id)
